@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: Template
 labels:
-  template: generic-java-jenkins-pipeline
+  template: spring-boot-java-jenkins-pipeline
 metadata:
   annotations:
-    description: Application template for JWS applications built using a Jenkins Pipeline
-    iconClass: icon-tomcat
-    tags: tomcat,tomcat8,java,jboss,xpaas,jenkins-ci
-    version: 1.2.0
-  name: generic-java-jenkins-pipeline
+    description: Application template for SB2 applications built using a Jenkins Pipeline
+    tags: springboot,jenkins-ci
+    version: 1.0.0
+  name: spring-boot-java-jenkins-pipeline
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -56,8 +55,11 @@ objects:
         kind: ImageStreamTag
         name: ${APPLICATION_NAME}:latest
     source:
-      binary: {}
-      type: Binary
+      type: Git
+      git:
+        uri: ${APPLICATION_SOURCE_REPO}
+        ref: ${APPLICATION_REPOSITORY_REF}
+      contextDir: 
     strategy:
       sourceStrategy:
         from:
@@ -76,7 +78,7 @@ parameters:
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
   required: true
-  value: https://github.com/redhat-cop/container-pipelines.git
+  value: https://dgsiaf-gitlab.mecon.ar/community/container-pipelines.git
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
   value: "master"
@@ -86,20 +88,13 @@ parameters:
 - description: Source code repo for demo app
   name: APPLICATION_SOURCE_REPO
   required: true
-  value: https://github.com/redhat-cop/spring-rest.git
+  value: https://dgsiaf-gitlab.mecon.ar/community/hello-world.git
+- description: Git branch/tag reference
+  name: APPLICATION_REPOSITORY_REF
+  value: "master"  
 - description: Path within Git project pointing to the pipeline run script
   name: PIPELINE_SCRIPT
   value: Jenkinsfile
-- description: GitHub trigger secret
-  from: '[a-zA-Z0-9]{8}'
-  generate: expression
-  name: GITHUB_WEBHOOK_SECRET
-  required: true
-- description: Generic build trigger secret
-  from: '[a-zA-Z0-9]{8}'
-  generate: expression
-  name: GENERIC_WEBHOOK_SECRET
-  required: true
 - description: Namespace in which the ImageStreams for Red Hat Middleware images are
     installed. These ImageStreams are normally installed in the openshift namespace.
     You should only need to modify this if you've installed the ImageStreams in a
@@ -110,4 +105,4 @@ parameters:
 - description: Image stream tag for the image you'd like to use to build the application
   name: IMAGE_STREAM_TAG_NAME
   required: true
-  value: redhat-openjdk18-openshift:1.1
+  value: springboot-java:latest
