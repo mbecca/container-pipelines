@@ -73,7 +73,7 @@ parameters:
 - description: Git source URI for application
   name: PIPELINE_REPOSITORY_URL
   required: true
-  value: https://github.com/redhat-cop/container-pipelines.git
+  value: https://dgsiaf-gitlab.mecon.ar/community/container-pipelines.git
 - description: Git branch/tag reference
   name: PIPELINE_REPOSITORY_REF
   value: "master"

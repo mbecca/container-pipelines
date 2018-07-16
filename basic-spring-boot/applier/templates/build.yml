@@ -88,7 +88,7 @@ parameters:
 - description: Source code repo for demo app
   name: APPLICATION_SOURCE_REPO
   required: true
-  value: https://dgsiaf-gitlab.mecon.ar/community/hello-world.git
+  value: git@dgsiaf-gitlab.mecon.ar:community/hello-world.git
 - description: Git branch/tag reference
   name: APPLICATION_REPOSITORY_REF
   value: "master"  
@@ -101,7 +101,7 @@ parameters:
     different namespace/project.
   name: IMAGE_STREAM_NAMESPACE
   required: true
-  value: openshift
+  value: changeit
 - description: Image stream tag for the image you'd like to use to build the application
   name: IMAGE_STREAM_TAG_NAME
   required: true
