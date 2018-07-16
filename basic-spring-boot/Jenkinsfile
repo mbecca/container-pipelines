@@ -34,14 +34,14 @@ pipeline {
       }
     }
 
-    // Run Maven build, skipping tests
+    // Run Gradle build, skipping tests
     stage('Build'){
       steps {
         sh "gradlew build -x test"
       }
     }
 
-    // Run Maven unit tests
+    // Run Gradle unit tests
     stage('Unit Test'){
       steps {
         sh "gradlew test"
